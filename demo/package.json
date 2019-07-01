@@ -1,0 +1,12 @@
+{
+	"name": "egret",
+	"version": "4.0.3",
+	"modules": [
+		{
+			"name": "demo",
+			"description": "demo",
+			"files": [],
+			"root": "src"
+		}
+	]
+}
