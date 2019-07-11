@@ -55,6 +55,8 @@ var Main = (function (_super) {
         //this.loadingView = new LoadingUI();
         // this.stage.addChild(this.loadingView);
         // initialize the Resource loading library
+        var scaleMode = egret.StageScaleMode.EXACT_FIT;
+        this.stage.scaleMode = scaleMode;
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.loadConfig("resource/default.res.json", "resource/");

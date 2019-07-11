@@ -17,6 +17,12 @@ var Login = (function (_super) {
         var _this = _super.call(this) || this;
         _this.skinName = "resource/eui_skins/LoginSkin.exml";
         _this.eventListen();
+        _this.uname.addEventListener(egret.Event.CHANGE, function (evt) {
+            this.engine = evt.target.text;
+        }, _this);
+        _this.passwd.addEventListener(egret.Event.CHANGE, function (evt) {
+            console.log(evt.target.text);
+        }, _this);
         return _this;
     }
     Login.getInstance = function () {
@@ -39,6 +45,7 @@ var Login = (function (_super) {
         this.parent.removeChild(this);
     };
     Login.prototype.toLogin = function () {
+        console.log(this.engine);
         console.log('222222222');
         this.parent.addChild(Home.getInstance());
         this.parent.removeChild(this);

@@ -6,6 +6,9 @@
 class Login extends eui.Component{
     //单例模式
     private statusGetLabel:egret.TextField;
+    private passwd: egret.TextField;
+    private uname: egret.TextField;
+    private engine:string; 
 	private static instance:Login = null;
 	public static getInstance(){
 		if(Login.instance == null){
@@ -20,6 +23,14 @@ class Login extends eui.Component{
     	super();
     	this.skinName = "resource/eui_skins/LoginSkin.exml";
     	this.eventListen();
+
+        this.uname.addEventListener( egret.Event.CHANGE, function (evt: egret.Event){
+           this.engine  = evt.target.text
+        }, this );
+
+        this.passwd.addEventListener( egret.Event.CHANGE, function (evt: egret.Event){
+            console.log(evt.target.text);
+        }, this );
 	}
 	public eventListen(){
         this.register_btn.touchEnabled = true;
@@ -35,7 +46,7 @@ class Login extends eui.Component{
 	    this.parent.removeChild(this);
 	}
 	public toLogin(){
-
+        console.log(this.engine)
 	    console.log('222222222');
 	    this.parent.addChild(Home.getInstance());
 	    this.parent.removeChild(this);

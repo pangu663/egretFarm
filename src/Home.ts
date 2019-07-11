@@ -16,6 +16,8 @@ class Home extends eui.Component{
     public cancle_chose:eui.Group;
     // 展开、收起日志、排行榜面板按钮
     public user_panel:eui.Image;
+    public user_panel0:eui.Image;
+    
     public up_down:eui.Image;
     public up_down_panel:eui.Group;
     public toggle:boolean = true;
@@ -37,6 +39,11 @@ class Home extends eui.Component{
     public close_xiaoxi:eui.Label;
     public close_wangfa:eui.Label;
     public close_fenxiang:eui.Label;
+    
+    //出售土地
+    public saleland:eui.Label;
+    //购买土地
+    public purchaseland:eui.Label;
 
     public close_rizhi:eui.Label;
     public close_paihang:eui.Label;
@@ -51,7 +58,7 @@ class Home extends eui.Component{
     // 玩家搜索按钮
     public search_player:eui.Image;
     public close_search_player:eui.Image;
-// 日志、排行榜、充值、查找玩家、我的仓库面板
+    // 日志、排行榜、充值、查找玩家、我的仓库面板
     public xiaoxi:eui.Group;
     public wangfa:eui.Group;
     public fenxiang:eui.Group;
@@ -124,7 +131,7 @@ class Home extends eui.Component{
     public dog_gp:eui.Group;
 	public constructor() {
     	super();
-//    	添加exml皮肤文件加载完成回调事件
+        // 添加exml皮肤文件加载完成回调事件
         this.skinName = "resource/eui_skins/HomeSkin.exml";
         // 等待所有资源加载完成后再后续执行事件
         this.addEventListener(eui.UIEvent.CREATION_COMPLETE,this.completeFun,this);
@@ -138,11 +145,12 @@ class Home extends eui.Component{
         mc1.addEventListener(egret.Event.COMPLETE, (e:egret.Event)=>{
             mc1.gotoAndPlay( "1",5);
         }, this);
-        mc1.x = 0;
-        mc1.y = 0;
+        mc1.x = -10;
+        mc1.y = -10;
         // var timer: egret.Timer = new egret.Timer(20, 0);
         // timer.addEventListener(egret.TimerEvent.TIMER, this.timerFunc, this);
         // timer.start();
+        egret.Tween.get(this.dog_gp,{loop:true}).to({x:80,y:600},3000).to({x:368,y:510},3000);
         // egret.Tween.get(this.dog_gp,{loop:true}).to({x:580,y:640},3000).to({x:368,y:550},3000);
     }
    
@@ -155,10 +163,10 @@ class Home extends eui.Component{
         // 设置果园，家园分类内容位置属性
         this.setPosition();
         // 动态创建田地
-        // this.creatCrops();
+        //this.creatCrops();
         this.creatRankList();
         // 创建女神雕像
-        this.creatStatus();
+        //this.creatStatus();
     }
     // 创建雕像
     public creatStatus(){
@@ -183,12 +191,12 @@ class Home extends eui.Component{
             ,{ thumb: "plants11",goodsName: "斗篷",comment: "耐力加成 +3" }
         ];
         // console.log(this.crops_bottom.$children);
-        var bottom_land = this.crops_bottom.$children;
+        /*var bottom_land = this.crops_bottom.$children;
         for(var i:number = 0;i< bottom_land.length;i++){
             bottom_land[i]['index'] = i;
             bottom_land[i].addEventListener(egret.TouchEvent.TOUCH_TAP,this.cropsClick,this);
             bottom_land[i]['pixelHitTest'] = true;
-        }
+        }*/
     }
     // 土地点击事件
     public cropsClick(evt:egret.TouchEvent){
@@ -233,9 +241,14 @@ class Home extends eui.Component{
             yuanBtns[n].addEventListener(egret.TouchEvent.TOUCH_TAP, this.rotateIcons, this);
             yuanBtns[n].addEventListener(egret.TouchEvent.TOUCH_TAP, this.rotateIcons, this);
         }
+        // 点击 出售土地,购买土地
+        this.saleland.addEventListener(egret.TouchEvent.TOUCH_TAP,this.saleland1,this);
+        this.purchaseland.addEventListener(egret.TouchEvent.TOUCH_TAP,this.purchaseland1,this);
         // 展开、收起日志排行榜面板按钮监听
         // 设置user面板的点击穿透，使得下面的up_down按钮点击事件生效
-        this.user_panel.touchEnabled = false;
+        //this.user_panel.visible = false;
+        this.user_panel0.touchEnabled = false;
+        //this.user_panel.touchEnabled = false;
         this.up_down.addEventListener(egret.TouchEvent.TOUCH_TAP,this.upDown,this);
         // 选项卡单击事件监听
         this.tabBar.addEventListener(eui.ItemTapEvent.ITEM_TAP,this.changeTab,this);
@@ -246,6 +259,14 @@ class Home extends eui.Component{
         this.tishi_right.addEventListener(egret.TouchEvent.TOUCH_TAP,this.closeBoZhong,this);
         // 土地升级按钮
         // this.up_level.addEventListener(egret.TouchEvent.TOUCH_TAP,this.upLand,this);
+    }
+    // 出售土地
+    public saleland1(){
+        console.log('11111111111')
+    }
+    // 购买土地
+    public purchaseland1(){
+        console.log('11111111111')
     }
     // 升级土地
     public upLand(){
@@ -264,7 +285,8 @@ class Home extends eui.Component{
     }
     // 打开日志、排行榜、充值弹出框
     public btnTapHandler(evt:egret.TouchEvent):void{
-        var openBtns:any[] = [this.open_xiaoxi,this.open_wangfa,this.open_fenxiang,this.rizhi,this.paihang,this.chongzhi,this.open_save_house,this.open_user_msg,this.open_shop,this.open_duihuan,this.open_zhuangban,this.tishi_left,this.tishi_right,this.up_level,this.up_house];
+        //,this.up_house
+        var openBtns:any[] = [this.open_xiaoxi,this.open_wangfa,this.open_fenxiang,this.rizhi,this.paihang,this.chongzhi,this.open_save_house,this.open_user_msg,this.open_shop,this.open_duihuan,this.open_zhuangban,this.tishi_left,this.tishi_right,this.up_level];
         var closeBtns:any[] = [this.close_xiaoxi,this.close_wangfa,this.close_fenxiang,this.close_rizhi,this.close_paihang,this.close_chongzhi,this.close_save_house,this.close_user_msg,this.close_shop,this.close_duihuan,this.close_zhuangban,this.close_land_info,this.close_bozhong,this.close_build_center,,this.close_build_center];
         var panel:any[] = [this.xiaoxi,this.wangfa,this.fenxiang,this.day_record,this.rank_gp,this.more_money,this.save_house,this.user_msg,this.shop,this.duihuan,this.zhuangban,this.land_info,this.bozhong,this.build_center,this.build_center];
         for(var i:number=0;i<openBtns.length;i++){
